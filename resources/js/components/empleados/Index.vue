@@ -32,7 +32,7 @@
                         <td>{{empleado.fecha_nacimiento}}</td>
                         <td>{{empleado.email}}</td>
                         <td>{{empleado.puesto}}</td>
-                        <td>{{empleado.direccion}}</td>
+                        <td>{{empleado.domicilio}}</td>
                         <td class="acciones">
                             <router-link :to="{ name: ''}"  type="button" class="btn btn-sm btn-outline-secondary" title="Ver">
                                 <i class="fa fa-eye"></i>
@@ -68,6 +68,23 @@ export default {
             },
             cargando: false
         }
+    },
+    mounted() {
+        this.getEmpledos();
+    },
+    methods :{
+        getEmpledos() {
+            this.empresas = [];
+            this.cargando = true;
+            return this.$store.dispatch('empleado/index', {
+                params: {
+
+                }
+            })
+            .then(data => {
+                this.$store.commit('empleado/SET_EMPLEADOS', data.empleados);
+            })
+        },
     },
     computed: {
         empleados() {
