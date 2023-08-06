@@ -36,6 +36,10 @@ class EmpleadoController extends Controller
         $datos["fecha_nacimiento"] = $fn->format("Y/m/d");
         $empleado = Empleado::create($datos);
 
+        $empleado->skills()->createMany(
+            $datos["skills"]["data"]
+        );
+
         return response()->json([
             'status' => true,
             'message' => "Empleado creado éxitosamente",
@@ -51,7 +55,7 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        $empleado = Empleado::find($id);
+        $empleado = Empleado::with("skills")->find($id);
         return response()->json([
             'status' => true,
             'empleado' => $empleado

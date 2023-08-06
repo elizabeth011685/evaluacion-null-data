@@ -2,24 +2,7 @@ const URI = '/api/empleados/';
 export default {
     namespaced : true,
     state: {
-        empleados : [
-            {
-                nombre:'Elizabeth Martinez',
-                fecha_nacimiento:'16/01/1985',
-                email : 'elizabeth011685@gmail.com',
-                puesto : 'Desarrollador',
-                direccion : 'Guadalupe Victoria #4 Tecámac, Estado de México'
-
-            },
-            {
-                nombre:'Jesús Romero',
-                fecha_nacimiento:'28/07/1987',
-                email : 'jromero@gmail.com',
-                puesto : 'Reclutador',
-                direccion : 'Av Revolucion 563, San Pedro de los Pinos'
-
-            }
-        ],
+        empleados : [],
         currentEmpleado : '',
         meta : {},
     },
@@ -60,6 +43,18 @@ export default {
                     .catch(error => {
                         reject(error);
                     });
+            });
+        },
+        find(context, payload) {
+            return new Promise((resolve, reject) => {
+                axios.get(URI + payload.id, {  })
+                    .then(r => r.data)
+                    .then(data => {
+                        resolve(data);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
             });
         },
     },

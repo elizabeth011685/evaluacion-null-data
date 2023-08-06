@@ -3,12 +3,15 @@
 @import '~admin-lte/dist/css/adminlte.css';
 @import '~admin-lte/plugins/daterangepicker/daterangepicker.css';
 
+.form-control {
+    height: auto;
+}
 body, html, #app, .app {
     padding: 0;
     margin: 0;
     background-color: #e6e6e6;
     font-color: #555555;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 div.encabezado_tabla{

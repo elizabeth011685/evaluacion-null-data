@@ -10,12 +10,15 @@ class EmpleadoSkill extends Model
     use HasFactory;
 
     protected $fillable = [
+        "id_empleado",
         "skill",
         "evaluacion"
     ];
 
+    protected $table = 'empleados_skills';
+
     public function empleado()
     {
-        return $this->belongsTo(Empleado::class,"id_usuario", "id");
+        return $this->belongsTo(Empleado::class,"id_empleado", "id");
     }
 }

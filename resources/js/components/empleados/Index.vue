@@ -34,13 +34,7 @@
                         <td>{{empleado.puesto}}</td>
                         <td>{{empleado.domicilio}}</td>
                         <td class="acciones">
-                            <router-link :to="{ name: ''}"  type="button" class="btn btn-sm btn-outline-secondary" title="Ver">
-                                <i class="fa fa-eye"></i>
-                            </router-link>
-                            <router-link :to="{ name: ''}"  type="button" class="btn btn-sm btn-outline-danger" title="Eliminar">
-                                <i class="fa fa-trash"></i>
-                            </router-link>
-
+                            <action-buttons v-bind:empleado="empleado"></action-buttons>
                         </td>
                     </tr>
                     </tbody>
@@ -52,8 +46,11 @@
 
 <script >
 
+import ActionButtons from "./partials/ActionButtons.vue";
+
 export default {
     name : 'empleado-index',
+    components: {ActionButtons},
 
     data(){
         return{

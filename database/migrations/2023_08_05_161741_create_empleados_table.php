@@ -20,6 +20,8 @@ class CreateEmpleadosTable extends Migration
             $table->string("puesto");
             $table->date("fecha_nacimiento");
             $table->string("domicilio",500);
+            $table->string("url_domicilio",300);
+
             $table->timestamps();
         });
     }
