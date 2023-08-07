@@ -4,9 +4,9 @@ export const routes = [
     {
         path: '/',
         name: 'home',
-        component: Home,
+        component: require('../components/empleados/Index.vue').default,
         meta :{
-            title: "Inicio"
+            title: "Lista de Empleados"
         }
     },
     {

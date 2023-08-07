@@ -29,5 +29,6 @@
     </body>
 </html>
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="https://unpkg.com/vue3-google-map"></script>
 <script src="https://kit.fontawesome.com/4a7d805650.js" crossorigin="anonymous"></script>
 

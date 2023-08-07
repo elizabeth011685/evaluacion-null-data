@@ -14,7 +14,9 @@ class Empleado extends Model
         "puesto",
         "fecha_nacimiento",
         "domicilio",
-        "url_domicilio"
+        "domicilio_url",
+        "domicilio_latitud",
+        "domicilio_longitud"
     ];
 
     public function skills()

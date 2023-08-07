@@ -55,11 +55,21 @@
                             <div class="col-md-12">
                                 {{currentEmpleado.domicilio}}
                             </div>
-
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" >
+                                <mapa v-bind:latitud="currentEmpleado.domicilio_latitud" v-bind:longitud="currentEmpleado.domicilio_longitud"></mapa>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="pull-right">
+                <router-link  :to="{ name: 'home'}" type="button" class="btn btn-primary" title="Regresar">
+                    <i class="fa fa-angle-left"></i> Regresar
+                </router-link>
             </div>
         </div>
     </div>
@@ -67,10 +77,11 @@
 </template>
 <script >
     import Evaluacion from "./partials/Evaluacion.vue";
+    import Mapa from "../general/Mapa.vue";
 
     export default {
         name: 'empleado-show',
-        components: {Evaluacion},
+        components: {Mapa, Evaluacion},
         props : ['id_empleado'],
         data(){
             return {

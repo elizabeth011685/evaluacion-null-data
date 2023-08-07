@@ -34,6 +34,11 @@ class EmpleadoController extends Controller
         $datos = $request->all();
         $fn = \DateTime::createFromFormat("d/m/Y", $datos["fecha_nacimiento"]);
         $datos["fecha_nacimiento"] = $fn->format("Y/m/d");
+
+        $coordenadas = explode(",", $datos["domicilio_coordenadas"]);
+        $datos["domicilio_latitud"] = trim($coordenadas[0]);
+        $datos["domicilio_longitud"] = trim($coordenadas[1]);
+
         $empleado = Empleado::create($datos);
 
         $empleado->skills()->createMany(

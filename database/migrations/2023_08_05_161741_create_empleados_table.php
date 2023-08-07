@@ -20,7 +20,9 @@ class CreateEmpleadosTable extends Migration
             $table->string("puesto");
             $table->date("fecha_nacimiento");
             $table->string("domicilio",500);
-            $table->string("url_domicilio",300);
+            $table->string("domicilio_url",300);
+            $table->decimal("domicilio_latitud",12,9);
+            $table->decimal("domicilio_longitud",12,9);
 
             $table->timestamps();
         });

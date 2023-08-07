@@ -26,16 +26,17 @@ class StoreEmpleadoRequest extends FormRequest
         return [
             'nombre' => ['required', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+){1,5}(?<!\s)$/', 'max:255'],
             'email' => ['required','string','unique:empleados', 'email:rfc,dns', 'max:50'],
-            'url_domicilio' => ['required','string', 'max:150'],
             'puesto' => ['required', 'string', 'max:255'],
             'fecha_nacimiento' => ['required', 'date_format:d/m/Y'],
             'domicilio' => ['required', 'string','max:500'],
+            'domicilio_url' => ['required','string', 'max:150'],
+            'domicilio_coordenadas' => ['required','regex:/^(\-?([0-8]?[0-9](\.\d+)?|90(.[0]+)))([,]\s?)+(\-?([0-9]{1,2}(\.\d+)?|1[0-7][0-9](\.\d+)?|180))$/'],
             'skills.data' => ['required','array'],
             'skills.data.*.skill' => ['required','string','max:250'],
             'skills.data.*.evaluacion' => ['required','integer','min:1','max:5']
         ];
     }
-    //https://goo.gl/maps/
+    ///^(\-?([0-8]?[0-9](\.\d+)?|90(.[0]+)))([,]\s?)+(\-?([0-9]{1,2}(\.\d+)?|1[0-7][0-9](\.\d+)?|180))$/
 
     public function attributes()
     {
@@ -45,7 +46,8 @@ class StoreEmpleadoRequest extends FormRequest
             'puesto' => 'puesto del empleado',
             'fecha_nacimiento' => 'fecha_nacimiento del empleado',
             'domicilio' => 'domicilio del empleado',
-            'url_domicilio' => 'url del domicilio del empleado',
+            'domicilio_url' => 'url del domicilio del empleado',
+            'domicilio_coordenadas' => 'coordenadas del domicilio del empleado',
             'skills' => 'skill para el empleado',
             'skills.data' => 'skill para el empleado',
         ];
@@ -73,8 +75,10 @@ class StoreEmpleadoRequest extends FormRequest
             'fecha_nacimiento.required' => "La :attribute es obligatoria",
             'fecha_nacimiento.date_format' => "La :attribute debe tener un formato de dd/mm/YYYY",
             'domicilio.required' => "El :attribute es obligatorio",
-            'url_domicilio.required' => "La :attribute es obligatorio",
-            'url_domicilio.regex' => "La :attribute debe tener un formato válido",
+            'domicilio_url.required' => "La :attribute es obligatorio",
+            'domicilio_url.regex' => "La :attribute debe tener un formato válido",
+            'domicilio_coordenadas.required' => "Las :attribute son obligatorias",
+            'domicilio_coordenadas.regex' => "Las :attribute debe tener un formato válido",
             'skills.data.required' => "Debe indicar al menos un :attribute",
         ];
 
