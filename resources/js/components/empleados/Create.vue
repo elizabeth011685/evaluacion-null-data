@@ -116,6 +116,7 @@
                                 <div class="col-md-12">
                                     <label class="form-label">Dirección:</label>
                                     <field
+                                        v-model="domicilio"
                                         name="direccion"
                                         type="textarea"
                                         class="form-control"
@@ -133,6 +134,7 @@
                                 <div class="col-md-12">
                                     <label class="form-label">Coordenadas de Dirección:</label>
                                     <field
+                                        v-model="domicilio_coordenadas"
                                         name="direccion_coordenadas"
                                         type="input"
                                         class="form-control"
@@ -197,6 +199,8 @@ const format = (date) => {
                 nombre : '',
                 puesto : '',
                 email : '',
+                domicilio :'',
+                domicilio_coordenadas : '',
                 fecha_nacimiento : new Date(),
                 apiKey : process.env.MIX_VUE_APP_GOOGLE_MAPS_API_KEY,
                 skills : [{
@@ -252,6 +256,10 @@ const format = (date) => {
                 if (!value) {
                     return 'Este campo es requerido';
                 }
+                const regex = /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+){1,5}(?<!\s)$/;
+                if (!regex.test(value)) {
+                    return 'El nombre del empleado sólo debe contener letras y tener al menos un apellido';
+                }
                 return true;
             },
             validarCoordenadas(value) {
@@ -260,12 +268,61 @@ const format = (date) => {
                 }
                 const regex = /^(\-?([0-8]?[0-9](\.\d+)?|90(.[0]+)))([,]\s?)+(\-?([0-9]{1,2}(\.\d+)?|1[0-7][0-9](\.\d+)?|180))$/i;
                 if (!regex.test(value)) {
-                    return 'Este campo debe tener un formato válido';
+                    return 'Las coordenadas del domicilio del empleado deben tener un formato válido';
                 }
                 return true;
             },
+            formatea_fecha(value) {
+                var d = 0;
+                var m = 0;
+                var y = 0;
+
+                if(value){
+                    var date =  new Date (value);
+                    d = date.getDate();
+                    m = date.getMonth() + 1;
+                    y = date.getFullYear();
+                    if (d < 10) {
+                        d = '0' + d;
+                    }
+                    if (m < 10) {
+                        m = '0' + m;
+                    }
+                    return d+'/'+ m+'/'+y;
+                }
+            },
             onSubmit(values) {
-                console.log(values);
+                let _self = this;
+                let errores = 0;
+                this.skills.forEach(
+                    function (skill,i)
+                    {
+                        if(!skill.evaluacion > 0)
+                        {
+                            errores++;
+                        }
+                    }
+                );
+                if(errores>0)
+                {
+                    new swal("Error","Las evaluaciones de los skills deben tener un valor mayor a 0","error");
+                }else{
+
+                    return this.$store.dispatch('empleado/store', {
+                        "nombre": _self.nombre,
+                        "puesto": _self.puesto,
+                        "email": _self.email,
+                        "fecha_nacimiento" : this.formatea_fecha(_self.fecha_nacimiento),
+                        "domicilio" : _self.domicilio,
+                        "domicilio_coordenadas" : _self.domicilio_coordenadas,
+                        "skills" : { "data" : _self.skills }
+
+
+                    })
+                        .then((data) => {
+                            this.$router.push({name: 'empleados'});
+                        });
+                }
             },
         }
     }

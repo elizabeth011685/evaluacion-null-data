@@ -2,6 +2,7 @@
 @import '~@fortawesome/fontawesome-free/css/fontawesome.css';
 @import '~admin-lte/dist/css/adminlte.css';
 @import '~admin-lte/plugins/daterangepicker/daterangepicker.css';
+@import '@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
 
 .form-control {
     height: auto;
@@ -35,3 +36,9 @@ thead th, td.acciones {
     min-width: 30px;
     text-align: center;
 }
+
+@import '~sweetalert2/src/variables';
+
+$swal2-background: #990000;
+
+@import '~sweetalert2/src/sweetalert2';

@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 const URI = '/api/empleados/';
 export default {
     namespaced : true,
@@ -57,6 +59,50 @@ export default {
                     })
             });
         },
+        store(context,payload){
+            let _self = this;
+
+            return new Promise((resolve, reject) => {
+                 Swal.fire(
+                        {
+                            title: "Registrar Empleado",
+                            text: "¿Está seguro de que la información es correcta?",
+                            icon: "question",
+                            showCancelButton: true,
+                            confirmButtonText: 'Si',
+                            cancelButtonText: 'Cancelar'
+                        }
+                    )
+                    .then((value) => {
+                        if (value.isConfirmed) {
+                            axios
+                                .post(URI, payload)
+                                .then(r => r.data)
+                                .then(data => {
+                                    Swal.fire({
+                                        title : "Empleado registrado correctamente",
+                                        icon : "success",
+                                        timer: 1500,
+                                    }).then(() => {
+                                        resolve(data);
+                                    })
+                                })
+                                .catch(error => {
+
+                                    Swal.fire({
+                                        title : "Error durante el registro",
+                                        text : _.flatten(_.toArray(error.response.data.errors)),
+                                        icon : "error",
+                                    }).then(() => {
+                                        reject(error);
+                                    })
+                                });
+                        }
+                    });
+            });
+
+        },
+
     },
     getters: {
         empleados(state){
