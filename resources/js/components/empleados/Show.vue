@@ -58,7 +58,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12" >
-                                <mapa v-bind:latitud="currentEmpleado.domicilio_latitud" v-bind:longitud="currentEmpleado.domicilio_longitud"></mapa>
+                                <mapa v-bind:api-key="apiKey" v-bind:latitud="Number(currentEmpleado.domicilio_latitud)" v-bind:longitud="Number(currentEmpleado.domicilio_longitud)"></mapa>
                             </div>
                         </div>
                     </div>
@@ -86,9 +86,11 @@
         data(){
             return {
                 cargando:false,
+                apiKey : process.env.MIX_VUE_APP_GOOGLE_MAPS_API_KEY,
             }
         },
         mounted() {
+            this.apiKey = process.env.MIX_VUE_APP_GOOGLE_MAPS_API_KEY;
             this.find();
         },
         methods: {
@@ -109,7 +111,7 @@
         computed: {
             currentEmpleado() {
                 return this.$store.getters['empleado/currentEmpleado']
-            }
+            },
         }
     }
 </script>
