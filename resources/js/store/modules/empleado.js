@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-const URI = '/api/empleados/';
+const URI = '/api/empleados';
 export default {
     namespaced : true,
     state: {
@@ -49,7 +49,7 @@ export default {
         },
         find(context, payload) {
             return new Promise((resolve, reject) => {
-                axios.get(URI + payload.id, {  })
+                axios.get(URI +'/'+ payload.id, {  })
                     .then(r => r.data)
                     .then(data => {
                         resolve(data);
