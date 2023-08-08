@@ -26,12 +26,12 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nombre</th>
-                        <th style="width: 100px">Fecha de Nacimiento</th>
-                        <th>Email</th>
-                        <th>Puesto</th>
+                        <th style="width: 180px">Nombre</th>
+                        <th style="width: 80px">Fecha de Nacimiento</th>
+                        <th style="width: 180px">Email</th>
+                        <th style="width: 150px">Puesto</th>
                         <th>Dirección del Domicilio</th>
-                        <th style="width: 200px">Coordenadas del Domicilio</th>
+                        <th style="width: 180px">Coordenadas del Domicilio</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
