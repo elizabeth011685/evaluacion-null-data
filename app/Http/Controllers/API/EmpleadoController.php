@@ -34,6 +34,11 @@ class EmpleadoController extends Controller
     {
         $datos = $request->all();
         $fn = \DateTime::createFromFormat("d/m/Y", $datos["fecha_nacimiento"]);
+
+        /** EL front envía la fecha con timezone Z (Zero) (+6 horas), por ello se actualiza el time zone a America/Mexico_City
+         * */
+        $fn->setTimezone(new \DateTimeZone('America/Mexico_City'));
+
         $datos["fecha_nacimiento"] = $fn->format("Y/m/d");
 
         $coordenadas = Coordenadas::getCoordenadas($datos["domicilio"]);

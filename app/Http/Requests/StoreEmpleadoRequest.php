@@ -25,7 +25,7 @@ class StoreEmpleadoRequest extends FormRequest
     {
         return [
             'nombre' => ['required', 'regex:/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+(?:\s+[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ]+){1,5}(?<!\s)$/', 'max:255'],
-            'email' => ['required','string','unique:empleados', 'email:rfc,dns', 'max:50'],
+            'email' => ['required','string', 'email:rfc,dns', 'max:50'],
             'puesto' => ['required', 'string', 'max:255'],
             'fecha_nacimiento' => ['required', 'date_format:d/m/Y'],
             'domicilio' => ['required', 'string','max:500'],

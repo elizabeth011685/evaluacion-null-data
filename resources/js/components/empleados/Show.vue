@@ -26,7 +26,7 @@
                             <div class="mb-3">
                                 <label class="form-label">Fecha de Nacimiento:</label>
                                 <div class="form-control">
-                                    {{currentEmpleado.fecha_nacimiento}}
+                                    {{ formatea_fecha(currentEmpleado.fecha_nacimiento)}}
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -154,7 +154,31 @@
                 }).finally(() => {
                     this.cargando = false;
                 });
-            }
+            },
+            formatea_fecha(value) {
+                var d = 0;
+                var m = 0;
+                var y = 0;
+
+                if(value){
+                    var date =  new Date (value);
+
+                    date.toLocaleDateString('es-MX',{
+                        timeZone :'America/Mexico_City',
+                    });
+
+                    d = date.getDate();
+                    m = date.getMonth() + 1;
+                    y = date.getFullYear();
+                    if (d < 10) {
+                        d = '0' + d;
+                    }
+                    if (m < 10) {
+                        m = '0' + m;
+                    }
+                    return d+'/'+ m+'/'+y;
+                }
+            },
         },
 
         computed: {
