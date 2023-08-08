@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEmpleadoRequest;
 use App\Models\Empleado;
+use App\Utils\Coordenadas;
 use Illuminate\Http\Request;
 
 class EmpleadoController extends Controller
@@ -35,7 +36,8 @@ class EmpleadoController extends Controller
         $fn = \DateTime::createFromFormat("d/m/Y", $datos["fecha_nacimiento"]);
         $datos["fecha_nacimiento"] = $fn->format("Y/m/d");
 
-        $coordenadas = explode(",", $datos["domicilio_coordenadas"]);
+        $coordenadas = Coordenadas::getCoordenadas($datos["domicilio"]);
+
         $datos["domicilio_latitud"] = trim($coordenadas[0]);
         $datos["domicilio_longitud"] = trim($coordenadas[1]);
 

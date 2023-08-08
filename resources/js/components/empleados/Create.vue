@@ -141,28 +141,10 @@
                                                 type="textarea"
                                                 class="form-control"
                                                 :rules = "validarDireccion"
+                                                placeholder="Lago Meru 20, Granada, Miguel Hidalgo, Ciudad de México"
                                             >
                                             </field>
                                             <ErrorMessage name="direccion" v-slot="{ message }" >
-                                                <p style="color: red" >{{ message }}</p>
-                                            </ErrorMessage>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <label class="form-label">Coordenadas:</label>
-                                            <field
-                                                v-model="domicilio_coordenadas"
-                                                name="direccion_coordenadas"
-                                                type="input"
-                                                class="form-control"
-                                                :rules = "validarCoordenadas"
-                                                placeholder = "19.425370900725362, -99.1744424270933"
-                                            >
-                                            </field>
-                                            <ErrorMessage name="direccion_coordenadas" v-slot="{ message }" >
                                                 <p style="color: red" >{{ message }}</p>
                                             </ErrorMessage>
                                         </div>
@@ -189,27 +171,21 @@
 
 </template>
 <script setup>
-import { ref } from 'vue';
-import { es } from 'date-fns/locale';
-
-
-const date = ref(new Date());
-const format = (date) => {
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year}`;
-}
-
+    import { ref } from 'vue';
+    import { es } from 'date-fns/locale';
+    const date = ref(new Date());
+    const format = (date) => {
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
 
 </script>
 <script >
-    //import StarRating from 'vue-star-rating';
     import {Form, Field, ErrorMessage} from "vee-validate";
     import VueDatePicker from '@vuepic/vue-datepicker';
     import '@vuepic/vue-datepicker/dist/main.css';
-    //import vue3starRatings from "vue3-star-ratings";
     import VueStarRating from 'vue-star-rating';
 
     export default {
@@ -285,16 +261,6 @@ const format = (date) => {
                 }
                 return true;
             },
-            validarCoordenadas(value) {
-                if (!value) {
-                    return 'Este campo es requerido';
-                }
-                const regex = /^(\-?([0-8]?[0-9](\.\d+)?|90(.[0]+)))([,]\s?)+(\-?([0-9]{1,2}(\.\d+)?|1[0-7][0-9](\.\d+)?|180))$/i;
-                if (!regex.test(value)) {
-                    return 'Las coordenadas del domicilio del empleado deben tener un formato válido';
-                }
-                return true;
-            },
             formatea_fecha(value) {
                 var d = 0;
                 var m = 0;
@@ -337,10 +303,7 @@ const format = (date) => {
                         "email": _self.email,
                         "fecha_nacimiento" : this.formatea_fecha(_self.fecha_nacimiento),
                         "domicilio" : _self.domicilio,
-                        "domicilio_coordenadas" : _self.domicilio_coordenadas,
                         "skills" : { "data" : _self.skills }
-
-
                     })
                         .then((data) => {
                             this.$router.push({name: 'empleados'});

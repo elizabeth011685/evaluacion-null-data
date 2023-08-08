@@ -2,6 +2,10 @@
 
 return [
 
+    'env_variables' => [
+        'APP_GOOGLE_MAPS_API_KEY' => env('MIX_VUE_APP_GOOGLE_MAPS_API_KEY'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
