@@ -141,7 +141,7 @@
                                                 type="textarea"
                                                 class="form-control"
                                                 :rules = "validarDireccion"
-                                                placeholder="Lago Meru 20, Granada, Miguel Hidalgo, Ciudad de México"
+                                                placeholder="Lago Meru 20, Colonia Granada, Delegación Miguel Hidalgo, Ciudad de México"
                                             >
                                             </field>
                                             <ErrorMessage name="direccion" v-slot="{ message }" >
