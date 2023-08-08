@@ -86,7 +86,7 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr v-for="(skill, i) in this.skills">
+                                        <tr v-for="(skill, i) in skills">
                                             <td>{{i+1}}</td>
                                             <td>
                                                 <field
