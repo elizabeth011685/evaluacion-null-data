@@ -4,150 +4,173 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="mb-3">
-                            <label class="form-label">Nombre:</label>
-                            <Field
-                                name = "nombre"
-                                type = "input"
-                                class="form-control"
-                                v-model="nombre"
-                                :rules = "validarNombre"
-                            />
-                            <ErrorMessage name="nombre" v-slot="{ message }" >
-                                <p style="color: red" >{{ message }}</p>
-                            </ErrorMessage>
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fa fa-address-card"></i> Datos Generales
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Nombre:</label>
+                                    <Field
+                                        name = "nombre"
+                                        type = "input"
+                                        class="form-control"
+                                        v-model="nombre"
+                                        :rules = "validarNombre"
+                                    />
+                                    <ErrorMessage name="nombre" v-slot="{ message }" >
+                                        <p style="color: red" >{{ message }}</p>
+                                    </ErrorMessage>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Fecha de Nacimiento:</label>
+                                    <VueDatePicker v-model="fecha_nacimiento"
+                                                   :format="format" month-name-format="long"
+                                                   :format-locale="es"></VueDatePicker>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Email:</label>
+                                    <Field
+                                        name = "email"
+                                        type = "email"
+                                        class="form-control"
+                                        v-model="email"
+                                        :rules = "validarEmail"
+                                    />
+                                    <ErrorMessage name="email" v-slot="{ message }" >
+                                        <p style="color: red" >{{ message }}</p>
+                                    </ErrorMessage>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Puesto:</label>
+                                    <Field
+                                        name = "puesto"
+                                        class="form-control"
+                                        v-model="puesto"
+                                        :rules = "validarPuesto"
+                                    />
+                                    <ErrorMessage name="puesto" v-slot="{ message }" >
+                                        <p style="color: red" >{{ message }}</p>
+                                    </ErrorMessage>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Fecha de Nacimiento:</label>
-                            <VueDatePicker v-model="fecha_nacimiento"
-                                           :format="format" month-name-format="long"
-                            :format-locale="es"></VueDatePicker>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Email:</label>
-                            <Field
-                                name = "email"
-                                type = "email"
-                                class="form-control"
-                                v-model="email"
-                                :rules = "validarEmail"
-                            />
-                            <ErrorMessage name="email" v-slot="{ message }" >
-                                <p style="color: red" >{{ message }}</p>
-                            </ErrorMessage>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Puesto:</label>
-                            <Field
-                                name = "puesto"
-                                class="form-control"
-                                v-model="puesto"
-                                :rules = "validarPuesto"
-                            />
-                            <ErrorMessage name="puesto" v-slot="{ message }" >
-                                <p style="color: red" >{{ message }}</p>
-                            </ErrorMessage>
-                        </div>
+
                     </div>
                     <div class="col-md-4">
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Skills:</label>
-                            <table class="table  table-sm table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="index_corto">
-                                            #
-                                        </th>
-                                        <th >
-                                            Skill
-                                        </th>
-                                        <th style="width: 120px">
-                                            Evaluación
-                                        </th>
-                                        <th class="encabezado icono">
-                                            <button type="button" class="btn btn-sm btn-outline-success" @click="agregarSkill" :disabled="cargando">
-                                                <i class="fa fa-spin fa-spinner" v-if="cargando"></i>
-                                                <i class="fa fa-plus" v-else></i>
-                                            </button>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="(skill, i) in this.skills">
-                                        <td>{{i+1}}</td>
-                                        <td>
-                                            <field
-                                                :name="`skill_${i}`"
-                                                type="input"
-                                                class="form-control"
-                                                v-model="skill.skill"
-                                                :rules = "validarSkill"
-                                            >
-                                            </field>
-                                            <ErrorMessage :name="`skill_${i}`" v-slot="{ message }" >
-                                                <p style="color: red" >{{ message }}</p>
-                                            </ErrorMessage>
-                                        </td>
-                                        <td >
-                                            <div class="pl-3">
-                                                <vue-star-rating
-                                                    v-model:rating="skill.evaluacion"
-                                                    v-bind:increment="1"
-                                                    v-bind:max-rating="5"
-                                                    inactive-color="lightgray"
-                                                    active-color="gold"
-                                                    v-bind:star-size="15">
-                                                </vue-star-rating>
-                                            </div>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <button type="button" class="btn btn-sm btn-outline-danger" @click="quitarSkill(i)" :disabled="skills.length == 1" >
-                                                <i class="fa fa-times"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fa fa-glasses"></i> Skills
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <table class="table  table-sm table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th class="index_corto">
+                                                #
+                                            </th>
+                                            <th >
+                                                Skill
+                                            </th>
+                                            <th style="width: 120px">
+                                                Evaluación
+                                            </th>
+                                            <th class="encabezado icono">
+                                                <button type="button" class="btn btn-sm btn-outline-success" @click="agregarSkill" :disabled="cargando">
+                                                    <i class="fa fa-spin fa-spinner" v-if="cargando"></i>
+                                                    <i class="fa fa-plus" v-else></i>
+                                                </button>
+                                            </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr v-for="(skill, i) in this.skills">
+                                            <td>{{i+1}}</td>
+                                            <td>
+                                                <field
+                                                    :name="`skill_${i}`"
+                                                    type="input"
+                                                    class="form-control"
+                                                    v-model="skill.skill"
+                                                    :rules = "validarSkill"
+                                                >
+                                                </field>
+                                                <ErrorMessage :name="`skill_${i}`" v-slot="{ message }" >
+                                                    <p style="color: red" >{{ message }}</p>
+                                                </ErrorMessage>
+                                            </td>
+                                            <td >
+                                                <div class="pl-3">
+                                                    <vue-star-rating
+                                                        v-model:rating="skill.evaluacion"
+                                                        v-bind:increment="1"
+                                                        v-bind:max-rating="5"
+                                                        inactive-color="lightgray"
+                                                        active-color="gold"
+                                                        v-bind:star-size="15">
+                                                    </vue-star-rating>
+                                                </div>
+                                            </td>
+                                            <td style="text-align: center">
+                                                <button type="button" class="btn btn-sm btn-outline-danger" @click="quitarSkill(i)" :disabled="skills.length == 1" >
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="form-label">Dirección:</label>
-                                    <field
-                                        v-model="domicilio"
-                                        name="direccion"
-                                        type="textarea"
-                                        class="form-control"
-                                        :rules = "validarDireccion"
-                                    >
-                                    </field>
-                                    <ErrorMessage name="direccion" v-slot="{ message }" >
-                                        <p style="color: red" >{{ message }}</p>
-                                    </ErrorMessage>
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fa fa-home"></i> Domicilio
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Dirección:</label>
+                                            <field
+                                                v-model="domicilio"
+                                                name="direccion"
+                                                type="textarea"
+                                                class="form-control"
+                                                :rules = "validarDireccion"
+                                            >
+                                            </field>
+                                            <ErrorMessage name="direccion" v-slot="{ message }" >
+                                                <p style="color: red" >{{ message }}</p>
+                                            </ErrorMessage>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Coordenadas:</label>
+                                            <field
+                                                v-model="domicilio_coordenadas"
+                                                name="direccion_coordenadas"
+                                                type="input"
+                                                class="form-control"
+                                                :rules = "validarCoordenadas"
+                                                placeholder = "19.425370900725362, -99.1744424270933"
+                                            >
+                                            </field>
+                                            <ErrorMessage name="direccion_coordenadas" v-slot="{ message }" >
+                                                <p style="color: red" >{{ message }}</p>
+                                            </ErrorMessage>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label class="form-label">Coordenadas de Dirección:</label>
-                                    <field
-                                        v-model="domicilio_coordenadas"
-                                        name="direccion_coordenadas"
-                                        type="input"
-                                        class="form-control"
-                                        :rules = "validarCoordenadas"
-                                        placeholder = "19.425370900725362, -99.1744424270933"
-                                    >
-                                    </field>
-                                    <ErrorMessage name="direccion_coordenadas" v-slot="{ message }" >
-                                        <p style="color: red" >{{ message }}</p>
-                                    </ErrorMessage>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

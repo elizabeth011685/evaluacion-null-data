@@ -1,5 +1,14 @@
 <template>
-    <div class="card">
+    <div class="card" v-if="cargando">
+        <div class="card-body">
+            <div class="card-header">
+                <div class="spinner-border text-success" role="status" >
+                    <span class="sr-only">Cargando...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card" v-else>
         <div class="card-body">
             <div class="row">
                 <router-view></router-view>
@@ -11,17 +20,18 @@
             </div>
             <div class="table-responsive">
                 <div class="encabezado_tabla">
-                    Lista de Empleados
+                    <i class="fa fa-users" /> Lista de Empleados
                 </div>
                 <table class="table table-sm table-bordered">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
-                        <th>Fecha Nacimiento</th>
+                        <th style="width: 100px">Fecha de Nacimiento</th>
                         <th>Email</th>
                         <th>Puesto</th>
-                        <th>Dirección</th>
+                        <th>Dirección del Domicilio</th>
+                        <th style="width: 200px">Coordenadas del Domicilio</th>
                         <th>Acciones</th>
                     </tr>
                     </thead>
@@ -29,10 +39,11 @@
                     <tr v-for="(empleado, i) in empleados">
                         <td>{{parseInt(i)+1}}</td>
                         <td>{{empleado.nombre}}</td>
-                        <td>{{empleado.fecha_nacimiento}}</td>
+                        <td style="text-align: center">{{ this.formatea_fecha(empleado.fecha_nacimiento) }}</td>
                         <td>{{empleado.email}}</td>
                         <td>{{empleado.puesto}}</td>
                         <td>{{empleado.domicilio}}</td>
+                        <td style="text-align: center">{{empleado.domicilio_latitud}}, {{empleado.domicilio_longitud}}</td>
                         <td class="acciones">
                             <action-buttons v-bind:empleado="empleado"></action-buttons>
                         </td>
@@ -80,7 +91,28 @@ export default {
             })
             .then(data => {
                 this.$store.commit('empleado/SET_EMPLEADOS', data.empleados);
+            }).finally(() => {
+                this.cargando = false;
             })
+        },
+        formatea_fecha(value) {
+            var d = 0;
+            var m = 0;
+            var y = 0;
+
+            if(value){
+                var date =  new Date (value);
+                d = date.getDate();
+                m = date.getMonth() + 1;
+                y = date.getFullYear();
+                if (d < 10) {
+                    d = '0' + d;
+                }
+                if (m < 10) {
+                    m = '0' + m;
+                }
+                return d+'/'+ m+'/'+y;
+            }
         },
     },
     computed: {
@@ -89,8 +121,6 @@ export default {
         }
     }
 }
-
-
 </script>
 
 <style scoped>
